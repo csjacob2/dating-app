@@ -1,0 +1,15 @@
+{
+  "name": "vlocity",
+  "version": "1.0.0",
+  "description": "Vlocity Technical",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CSJ",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^1.0.2",
+    "grunt-contrib-less": "^1.4.1"
+  }
+}
