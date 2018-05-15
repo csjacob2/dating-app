@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('.btn_search').click(function(e){
+    $('button.btn.search').click(function(e){
+        //prevent reloading of page when pressing enter in the search box
         e.preventDefault();
 
         var searchTerm = $('input.search').val();
@@ -7,20 +8,54 @@ $(document).ready(function() {
         profile.clearResults();
         profile.clearProfile();
         profile.searchProfiles(searchTerm);
-        $('input.search').val('');
-    })
-});
 
+        // clear search box after conducting search
+        $('input.search').val('');
+    });
+
+    $('button.btn.logout').click(function(){
+        // code for logout here
+    });
+
+    $('section.details .close').on('click', function(){
+        //hide the profile in mobile view
+        profile.hideProfile();
+    });
+});
 
 
 var profile = (function() {
 
     function _clearResults() {
         $('.profiles .searchResults li').remove();
-        $('p.found').remove();
+        $('.profiles p.found').html('');
     }
 
-    function _getProfileData(){
+    function _searchProfiles(searchTerm) {
+        // search profile data
+
+        var foundProfiles = [];
+        searchTerm = searchTerm.trim().toLowerCase();
+
+        getProfileData()
+            .then(function(data){
+
+                foundProfiles = data.People.filter(function(obj) {
+                    var n = obj.name.trim().toLowerCase().search(searchTerm);
+                    if (n != -1) {
+                        return obj;
+                    }
+                });
+
+                displayResults(foundProfiles);
+        }, function(error) {
+            console.error("failed to load profiles!", error);
+        });
+    }
+
+    function getProfileData(){
+        // get profile data from json file
+
         var profileData = {};
 
         return new Promise(function(resolve, reject) {
@@ -36,29 +71,10 @@ var profile = (function() {
         });
     }
 
-    function _searchProfiles(searchTerm) {
-        var foundProfiles = [];
-        searchTerm = searchTerm.trim().toLowerCase();
-
-        _getProfileData()
-            .then(function(data){
-
-                foundProfiles = data.People.filter(function(obj) {
-                    var n = obj.name.trim().toLowerCase().search(searchTerm);
-
-                    if (n != -1) {
-                        return obj;
-                    }
-                });
-
-                displayResults(foundProfiles);
-
-        }, function(error) {
-            console.error("failed to load profiles!", error);
-        });
-    }
-
     function displayResults(searchResults) {
+        // build search results list
+        // this should be done in a template
+
         const li = '<li class="profile"></li>';
 
         for (let index in searchResults) {
@@ -70,18 +86,23 @@ var profile = (function() {
             attachClickHandler(profileId, searchResults[index]);
         }
 
-        $('.profiles').append('<p class="found">'+ searchResults.length +' profile(s) found.</p>')
+        $('.profiles .found').html(searchResults.length +' profile(s) found.')
     }
 
     function displayProfile(profile) {
+        // display profile of a single contact when selected
+        //this should also be outlined in a template
+
+        $('section.details').animate({'left': '-1200px'});
         _clearProfile();
 
-        $('section.details .profile_image').attr('src', profile.img);
-        $('section.details .profile_desc').html(profile.Description);
+        $('.profile_details .profile_name').html(profile.name);
+        $('.profile_details .profile_image').attr('src', profile.img).attr('alt', profile.name);
+        $('.profile_details .profile_desc').html(profile.Description);
         calculateRating(profile.rating);
 
-        var likes, dislikes, table_row, evenOdd=false;
-        //build the table (this is icky, I don't think this should be a table structure?)
+        //build the likes/dislikes table
+        var likes, dislikes, table_row;
         var tableLength = Math.max(profile.Likes.length, profile.Dislikes.length);
 
         for (let i = 0; i < tableLength; i++) {
@@ -96,18 +117,27 @@ var profile = (function() {
                 dislikes = '&nbsp;'
             }
 
-            evenOdd = !evenOdd;
-
-            table_row = '<tr class="traits"><td class="'+(evenOdd ? 'odd' : 'even')+'">' + likes +'</td><td>'+ dislikes + '</td></tr>';
+            table_row = '<tr class="traits"><td>' + likes +'</td><td>'+ dislikes + '</td></tr>';
             $('table.profile_traits').append(table_row);
         }
+
+        $('section.details').animate({'left': '0'});
+    }
+
+    function _hideProfile() {
+        // hide profile overlay in mobile view
+
+        $('section.details').animate({'left': '-1200px'});
+        $('.profiles .searchResults li.selected').removeClass('selected');
     }
 
     function attachClickHandler(profileId, profileData) {
         //helper function to attach click handler to search results to display contact details
+
         $('.profiles .searchResults li#'+profileId).on('click', function(){
             $('.profiles .searchResults li.selected').removeClass('selected');
             $(this).toggleClass('selected');
+
             displayProfile(profileData);
         });
     }
@@ -117,32 +147,32 @@ var profile = (function() {
         // can be adjusted to have a different max value and rating symbol
 
         const maxValue = 5;
-        const ratingSymbol = '&hearts;';
+        const ratingSymbol = '♥&#xFE0E;';                   // fix for "Unicode variation selector" to prevents the symbol from rendering as emoji on mobile
         const span = '<span>'+ratingSymbol+'</span>';
 
         for (let i = 1; i <= maxValue; i++) {
-            $('section.details .profile_rating').append(span);
+            $('.profile_details .profile_rating').append(span);
 
             // add class to turn rating on or off
             if (i <= ratingValue) {
-                $('section.details .profile_rating span').last().addClass('on');
+                $('.profile_details .profile_rating span').last().addClass('on');
             } else {
-                $('section.details .profile_rating span').last().addClass('off');
+                $('.profile_details .profile_rating span').last().addClass('off');
             }
         }
     }
 
     function _clearProfile() {
+        // clear out contents of profile so new contents can be placed in
+        $('section.details').animate({'left': '-1200px'});
         $('table.profile_traits tr.traits').remove();
-        $('section.details .profile_image').attr('src', '');
-        $('section.details .profile_desc').html('');
-        $('section.details .profile_rating span').remove();
+        $('.profile_details .profile_rating span').remove();
     }
 
     return {
         clearResults:       _clearResults,
         clearProfile:       _clearProfile,
-        getProfileData:     _getProfileData,
+        hideProfile:        _hideProfile,
         searchProfiles:     _searchProfiles
     }
 })();

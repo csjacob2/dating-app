@@ -1,4 +1,218 @@
 * {
   box-sizing: border-box;
 }
-
+button,
+input {
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* Roboto*/
+@font-face {
+  font-family: 'Roboto';
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: "Roboto";
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+}
+body button {
+  cursor: pointer;
+  background: #ddd;
+}
+body button:hover {
+  background: #ccc;
+}
+body header {
+  height: 70px;
+  display: flex;
+  flex-basis: 100%;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  background-color: #e5e5e5;
+}
+body header .form_search {
+  align-items: center;
+  display: flex;
+  margin: 0 auto 0 0;
+}
+body header .form_search input.search[type="text"] {
+  padding: 6px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+body header .form_search button.btn.search {
+  padding: 6px 10px;
+  font-size: 17px;
+  border: 1px solid #666;
+  border-radius: 10px;
+  background-color: #437dcf;
+  color: #fff;
+}
+body header .login {
+  border: 1px solid #999;
+  border-radius: 10px;
+  height: 50px;
+  background-color: #fff;
+}
+body header .login .user_name {
+  float: left;
+  padding: 0 20px;
+}
+body header .login span {
+  display: flex;
+  flex-direction: row;
+}
+body header .login span .user_image {
+  width: 48px;
+  height: 48px;
+}
+body header .login span button.logout {
+  border-radius: 0 10px 10px 0;
+  border: none;
+}
+body section.profiles {
+  flex: 1;
+  background-color: #fff;
+  padding: 0 0 0 8px;
+  z-index: 2;
+}
+body section.profiles ul.searchResults {
+  list-style-type: none;
+  margin: 0 10px;
+  padding: 0;
+}
+body section.profiles ul.searchResults li.profile {
+  padding: 10px 5px 10px 10px;
+  margin: 20px 0;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+body section.profiles ul.searchResults li.profile.selected {
+  color: #fff;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: #999;
+}
+body section.profiles ul.searchResults li.profile.selected::after {
+  content: '\25BA';
+  float: right;
+}
+body section.details {
+  flex: 3;
+  position: relative;
+  left: -1200px;
+  margin: 0 8px 0 0;
+  z-index: 1;
+  background-color: #fff;
+}
+body section.details .close {
+  display: none;
+}
+body section.details .profile_details {
+  padding: 20px;
+}
+body section.details .profile_details section.top {
+  display: flex;
+}
+body section.details .profile_details section.top .profile_name {
+  display: none;
+}
+body section.details .profile_details section.top img.profile_image {
+  border: 1px solid #999;
+  border-radius: 10px;
+  width: 200px;
+  height: 200px;
+}
+body section.details .profile_details section.top .column {
+  padding: 0 0 0 20px;
+}
+body section.details .profile_details section.top .column button.message {
+  width: 150px;
+  height: 60px;
+  font-size: 18px;
+  border-radius: 10px;
+  background-color: #437dcf;
+  color: #fff;
+  border: 1px solid #666;
+}
+body section.details .profile_details section.top .column .profile_rating {
+  font-size: 3em;
+}
+body section.details .profile_details section.top .column .profile_rating .on {
+  color: #ff0000;
+}
+body section.details .profile_details section.top .column .profile_rating .off {
+  color: #d2d2d2;
+}
+body section.details .profile_details section.bottom table.profile_traits {
+  border-collapse: collapse;
+  border: 1px solid #d2d2d2;
+  width: 100%;
+}
+body section.details .profile_details section.bottom table.profile_traits th {
+  background-color: #d2d2d2;
+  text-align: left;
+  padding-left: 10px;
+  width: 50%;
+}
+body section.details .profile_details section.bottom table.profile_traits tr {
+  background-color: #fff;
+}
+body section.details .profile_details section.bottom table.profile_traits tr:nth-child(2n+1) {
+  background-color: #e5e5e5;
+}
+body section.details .profile_details section.bottom table.profile_traits td {
+  width: 50%;
+  padding-left: 10px;
+}
+@media only screen and (max-width: 375px) {
+  body header .form_search input.search[type="text"] {
+    width: 60%;
+  }
+  body header .login .user_name {
+    display: none;
+  }
+  body header .login .user_image {
+    border-radius: 10px 0 0 10px;
+  }
+  body section.profiles {
+    border-bottom: 1px solid #ccc;
+    flex: unset;
+    flex-grow: 1;
+  }
+  body section.profiles ul.searchResults li.profile.selected::after {
+    content: '';
+  }
+  body section.details {
+    flex: unset;
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    width: fit-content;
+  }
+  body section.details .close {
+    font-size: 40px;
+    display: block;
+    right: 10px;
+    top: 0;
+    position: absolute;
+    color: #666;
+  }
+  body section.details .profile_details section.top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  body section.details .profile_details section.top .profile_name {
+    display: inline;
+    font-size: 24px;
+  }
+  body section.details .profile_details section.top .column {
+    padding: 10px 0 0 0;
+  }
+}

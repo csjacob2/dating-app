@@ -3,41 +3,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="description" content="The Lonely Hearts Dating Site, come find your match!">
+    <meta name="keywords" content="dating, profiles, search, love, men, women">
     <title>Lonely Hearts Dating Site</title>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="script.js"></script>
     <link href="style.css" rel="stylesheet">
 
 </head>
 <body>
 
-
     <header>
-        <form>
-            <input class="search" placeholder="Search..." />
-            <button class="btn_search"></button>
+        <form class="form_search">
+            <input class="search" type="text" placeholder="Search..." />
+            <button class="btn search"><i class="fa fa-search"></i></button>
         </form>
+
+        <div class="login">
+            <p class="user_name">Happy Cat</p>
+            <span>
+                <img class="user_image" src="happycat.jpg" alt="Happy Cat">
+                <button class="btn logout">&#9660;</button>
+            </span>
+        </div>
     </header>
 
 
     <section class="profiles">
+        <p class="found"></p>
         <ul class="searchResults"></ul>
     </section>
 
 
     <section class="details">
-        <img class="profile_image">
-        <button class="message"></button>
-        <div class="profile_rating"></div>
-        <p class="profile_desc"></p>
+        <div class="close">x</div>
+        <div class="profile_details">
+            <section class="top">
+                <p class="profile_name"></p>
+                <img class="profile_image">
+                <div class="column">
+                    <button class="btn message">Send Message!</button>
+                    <div class="profile_rating"></div>
+                </div>
+            </section>
 
+            <section class="middle">
+                <p class="profile_desc"></p>
+            </section>
 
-        <table border="1" class="profile_traits">
-            <th>Likes</th> <th>Dislikes</th>
-        </table>
+            <section class="bottom">
+                <table class="profile_traits">
+                    <th>Likes</th> <th>Dislikes</th>
+                </table>
+            </section>
+        </div>
     </section>
-
 
 </body>
 </html>
