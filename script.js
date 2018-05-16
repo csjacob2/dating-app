@@ -48,9 +48,9 @@ var profile = (function() {
                 });
 
                 displayResults(foundProfiles);
-        }, function(error) {
-            console.error("failed to load profiles!", error);
-        });
+            }, function(error) {
+                console.error("failed to load profiles!", error);
+            });
     }
 
     function getProfileData(){
@@ -62,12 +62,12 @@ var profile = (function() {
             $.getJSON('people.json', function(data) {
                 profileData = data;
             })
-            .done(function() {
-                resolve(profileData);
-            })
-            .fail(function() {
-                reject('error, can\'t find file');
-            });
+                .done(function() {
+                    resolve(profileData);
+                })
+                .fail(function() {
+                    reject('error, can\'t find file');
+                });
         });
     }
 
@@ -86,7 +86,7 @@ var profile = (function() {
             attachClickHandler(profileId, searchResults[index]);
         }
 
-        $('.profiles .found').html(searchResults.length +' profile(s) found.')
+        $('.profiles .found').html(searchResults.length +' profile(s) found.');
     }
 
     function displayProfile(profile) {
@@ -109,12 +109,12 @@ var profile = (function() {
             if (profile.Likes[i] !== undefined) {
                 likes = profile.Likes[i];
             } else {
-                likes = '&nbsp;'
+                likes = '&nbsp;';
             }
             if (profile.Dislikes[i] !== undefined) {
                 dislikes = profile.Dislikes[i];
             } else {
-                dislikes = '&nbsp;'
+                dislikes = '&nbsp;';
             }
 
             table_row = '<tr class="traits"><td>' + likes +'</td><td>'+ dislikes + '</td></tr>';
@@ -174,5 +174,5 @@ var profile = (function() {
         clearProfile:       _clearProfile,
         hideProfile:        _hideProfile,
         searchProfiles:     _searchProfiles
-    }
+    };
 })();
