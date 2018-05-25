@@ -1,7 +1,7 @@
 {
-  "name": "vlocity",
+  "name": "Lonely Hearts Dating Site",
   "version": "1.0.0",
-  "description": "Vlocity Technical",
+  "description": "HTML/CSS and Javascript UI technical",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

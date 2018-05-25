@@ -1,4 +1,4 @@
-# Vlocity UI Software Engineer Technical Test
+# Lonely Hearts Dating Site
 
 Implement with jQuery, CSS and HTML:
 1. A top bar which consists of a search box to search for a contact, the login user and profile photo.
